@@ -36,7 +36,7 @@
     }
   ],
   "output": {
-    "item": "ars_scalaes:wet_magebloom_brush"
+    "item": "ars_hex:wet_magebloom_brush"
   },
   "liquidOutput": {
     "fluid": "minecraft:water"

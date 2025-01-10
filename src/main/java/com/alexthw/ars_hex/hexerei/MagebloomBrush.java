@@ -64,7 +64,7 @@ public class MagebloomBrush extends BroomBrushItem {
 
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         tooltip.add(Component.translatable("tooltip.hexerei.broom_attachments").withStyle(Style.EMPTY.withColor(TextColor.fromRgb(10066329))));
-        tooltip.add(Component.translatable("tooltip.ars_scalaes.magebloom_brush").withStyle(Style.EMPTY.withColor(TextColor.fromRgb(10066329))));
+        tooltip.add(Component.translatable("tooltip.ars_hex.magebloom_brush").withStyle(Style.EMPTY.withColor(TextColor.fromRgb(10066329))));
         super.appendHoverText(stack, context, tooltip, flagIn);
     }
 

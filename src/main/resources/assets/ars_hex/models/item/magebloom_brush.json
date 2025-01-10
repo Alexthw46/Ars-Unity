@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ars_scalaes:item/wet_broom_brush"
+    "layer0": "ars_hex:item/broom_brush"
   }
 }

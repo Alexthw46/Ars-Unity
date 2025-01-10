@@ -1,0 +1,14 @@
+{
+  "ars_hex.glyph_desc.glyph_soul_shatter": "",
+  "ars_hex.glyph_name.glyph_soul_shatter": "Soul Shatter",
+  "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_amplify": "Increases damage dealt.",
+  "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_dampen": "Reduces damage dealt.",
+  "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_fortune": "Applies looting when killing a mob.",
+  "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_randomize": "Randomizes the damage dealt.",
+  "item.ars_hex.archwood_broom": "Archwood Broom",
+  "item.ars_hex.archwood_staff": "Archwood Staff",
+  "item.ars_hex.enchanter_scythe": "Enchanter's Scythe",
+  "item.ars_hex.magebloom_brush": "Magebloom Broom Brush",
+  "item.ars_hex.wet_magebloom_brush": "Wet Magebloom Broom Brush",
+  "tooltip.ars_hex.magebloom_brush": "Might recharge itself with the mana of the rider"
+}

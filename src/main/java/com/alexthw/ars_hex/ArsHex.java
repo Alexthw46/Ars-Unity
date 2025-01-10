@@ -1,15 +1,16 @@
 package com.alexthw.ars_hex;
 
+import com.alexthw.ars_hex.hexerei.HexereiCompat;
+import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.registry.ModRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,10 +23,15 @@ public class ArsHex {
 
     public ArsHex(IEventBus modEventBus, ModContainer modContainer) {
         ModRegistry.registerRegistries(modEventBus);
+        if (ModList.get().isLoaded("malum")) {
+            MalumCompat.init();
+        }
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.init();
+        }
         ArsNouveauRegistry.registerCompatGlyphs();
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::doClientStuff);
-        NeoForge.EVENT_BUS.register(this);
     }
 
     public static ResourceLocation prefix(String path) {
@@ -34,17 +40,18 @@ public class ArsHex {
 
     private void setup(final FMLCommonSetupEvent event) {
         //ArsNouveauRegistry.registerSounds();
+        if (ModList.get().isLoaded("malum")) {
+            event.enqueueWork(MalumCompat::postInit);
+        }
+        if (ModList.get().isLoaded("hexerei")) {
+            event.enqueueWork(HexereiCompat::postInit);
+        }
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
+    private void doClientStuff(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.layerDefinitions(event);
+        }
     }
 
 }

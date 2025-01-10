@@ -1,0 +1,15 @@
+{
+  "parent": "item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "ars_hex:item/enchanter_scythe_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "ars_hex:item/enchanter_scythe_gui"
+    },
+    "fixed": {
+      "parent": "ars_hex:item/enchanter_scythe_gui"
+    }
+  }
+}

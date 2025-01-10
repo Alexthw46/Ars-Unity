@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "ars_scalaes:item/spell_scythe_huge"
+    "layer0": "ars_hex:item/spell_scythe_huge"
   },
   "display": {
     "thirdperson_righthand": {

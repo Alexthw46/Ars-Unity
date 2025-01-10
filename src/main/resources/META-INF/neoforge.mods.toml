@@ -18,7 +18,7 @@ modId="ars_hex" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
-displayName="Example Ars Nouveau Addon" #mandatory
+displayName="Ars Hex" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -26,9 +26,7 @@ displayName="Example Ars Nouveau Addon" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="A bunch of Starbuncles" #optional
-# A text field displayed in the mod UI
-authors="Alexthw & BaileyHoll for base example, whoever forgot to change this for the rest." #optional
+authors="Alexthw." #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 Starbuncles will conquer the world.

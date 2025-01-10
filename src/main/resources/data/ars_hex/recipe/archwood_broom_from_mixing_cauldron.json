@@ -36,7 +36,7 @@
     }
   ],
   "output": {
-    "item": "ars_scalaes:archwood_broom"
+    "item": "ars_hex:archwood_broom"
   },
   "liquidOutput": {
     "fluid": "minecraft:water"

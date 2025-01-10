@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "ars_scalaes:archwood_staff",
+      "id": "ars_hex:archwood_staff",
       "required": false
     }
   ]
