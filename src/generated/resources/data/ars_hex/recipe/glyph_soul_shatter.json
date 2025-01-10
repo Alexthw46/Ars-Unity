@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "neoforge:mod_loaded": "malum"
+    }
+  ],
+  "type": "ars_nouveau:glyph",
+  "exp": 55,
+  "inputs": [
+    {
+      "item": "ars_nouveau:manipulation_essence"
+    },
+    {
+      "item": "malum:wicked_spirit"
+    },
+    {
+      "item": "malum:soul_stained_steel_sword"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "ars_hex:glyph_soul_shatter"
+  }
+}
