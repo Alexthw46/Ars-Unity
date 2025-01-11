@@ -10,16 +10,12 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ArsHex.MODID)
 public class ArsHex {
     public static final String MODID = "ars_hex";
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public ArsHex(IEventBus modEventBus, ModContainer modContainer) {
         ModRegistry.registerRegistries(modEventBus);
@@ -31,7 +27,8 @@ public class ArsHex {
         }
         ArsNouveauRegistry.registerCompatGlyphs();
         modEventBus.addListener(this::setup);
-        modEventBus.addListener(this::doClientStuff);
+        modEventBus.addListener(this::layerDefinitions);
+        modEventBus.addListener(this::registerClientExtensions);
     }
 
     public static ResourceLocation prefix(String path) {
@@ -48,9 +45,15 @@ public class ArsHex {
         }
     }
 
-    private void doClientStuff(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+    private void layerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.layerDefinitions(event);
+        }
+    }
+
+    private void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.registerClientExtensions(event);
         }
     }
 

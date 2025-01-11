@@ -1,6 +1,8 @@
 package com.alexthw.ars_hex.hexerei;
 
 import net.joefoxe.hexerei.client.renderer.entity.BroomType;
+import net.joefoxe.hexerei.item.custom.BroomItemRenderer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -10,6 +12,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +40,17 @@ public class HexereiCompat {
     public static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(HexereiModels.MagebloomBrush.LAYER_LOCATION, HexereiModels.MagebloomBrush::createBodyLayerNone);
         event.registerLayerDefinition(HexereiModels.ArchwoodStick.LAYER_LOCATION, HexereiModels.ArchwoodStick::createBodyLayerNone);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        final BroomItemRenderer broomRenderer = new BroomItemRenderer();
+        event.registerItem(new IClientItemExtensions() {
+            public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return broomRenderer.getRenderer();
+            }
+        }, ARCHWOOD_BROOM.get());
+
     }
 
     public static void postInit() {

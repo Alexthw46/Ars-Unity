@@ -15,19 +15,31 @@ import java.util.concurrent.CompletableFuture;
 
 public class AHItemTagProvider extends ItemTagsProvider {
 
-    public AHItemTagProvider(DataGenerator pGenerator, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagsProvider pBlockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(pGenerator.getPackOutput(), lookupProvider, pBlockTagsProvider.contentsGetter(), ArsHex.MODID, existingFileHelper);
+    public AHItemTagProvider(DataGenerator pGenerator, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper, BlockTagsProvider blockTagsProvider) {
+        super(pGenerator.getPackOutput(), lookupProvider, blockTagsProvider.contentsGetter(), ArsHex.MODID, existingFileHelper);
     }
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(HexereiTags.Items.BROOM_BRUSH).addOptional(HexereiCompat.MAGEBLOOM_BRUSH.getId());
-
     }
 
     @Override
     public @NotNull String getName() {
         return "Ars Hex Item Tags";
+    }
+
+}
+
+class AHBlockTagsProvider extends BlockTagsProvider {
+
+    public AHBlockTagsProvider(DataGenerator gen, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(gen.getPackOutput(), provider, ArsHex.MODID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
+        // add tags here
     }
 
 }
