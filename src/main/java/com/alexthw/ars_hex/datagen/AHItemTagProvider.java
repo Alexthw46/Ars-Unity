@@ -2,6 +2,7 @@ package com.alexthw.ars_hex.datagen;
 
 import com.alexthw.ars_hex.ArsHex;
 import com.alexthw.ars_hex.hexerei.HexereiCompat;
+import com.hollingsworth.arsnouveau.common.datagen.ItemTagProvider;
 import net.joefoxe.hexerei.util.HexereiTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -22,6 +23,7 @@ public class AHItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(HexereiTags.Items.BROOM_BRUSH).addOptional(HexereiCompat.MAGEBLOOM_BRUSH.getId());
+        tag(ItemTagProvider.SHARD_TAG);
     }
 
     @Override

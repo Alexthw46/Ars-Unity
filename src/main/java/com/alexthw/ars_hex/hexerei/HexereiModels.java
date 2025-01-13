@@ -12,7 +12,7 @@ import static com.alexthw.ars_hex.ArsHex.prefix;
 
 public class HexereiModels {
 
-    static class ArchwoodStick extends BroomStickBaseModel {
+    public static class ArchwoodStick extends BroomStickBaseModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(prefix("archwood_broom_stick"), "main");
         public static final ModelLayerLocation POWER_LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("hexerei", "broom_power_stick_base"), "main");
@@ -45,7 +45,7 @@ public class HexereiModels {
         }
     }
 
-    static class MagebloomBrush extends BroomBrushBaseModel {
+    public static class MagebloomBrush extends BroomBrushBaseModel {
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(prefix("archwood_broom_brush"), "main");
 
         public MagebloomBrush(ModelPart root) {

@@ -1,5 +1,6 @@
-package com.alexthw.ars_hex.hexerei;
+package com.alexthw.ars_hex.hexerei.broom;
 
+import com.alexthw.ars_hex.hexerei.HexereiModels;
 import com.hollingsworth.arsnouveau.client.particle.GlowParticleData;
 import com.hollingsworth.arsnouveau.client.particle.ParticleColor;
 import com.hollingsworth.arsnouveau.setup.registry.CapabilityRegistry;

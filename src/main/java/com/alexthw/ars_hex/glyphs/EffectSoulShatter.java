@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,11 @@ public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
 
     public EffectSoulShatter() {
         super(prefix("glyph_soul_shatter"), "Soul Shatter");
+    }
+
+    @Override
+    public String getBookDescription() {
+        return "Shatter the enemy soul, damaging it with the chance of releasing the spirits inside.";
     }
 
     @Override
@@ -60,6 +66,14 @@ public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
     @Override
     protected @NotNull Set<AbstractAugment> getCompatibleAugments() {
         return augmentSetOf(AugmentAmplify.INSTANCE, AugmentDampen.INSTANCE);
+    }
+
+    @Override
+    protected @NotNull Set<SpellSchool> getSchools() {
+        if (ModList.get().isLoaded("ars_elemental")) {
+            return Set.of(SpellSchools.NECROMANCY);
+        }
+        return super.getSchools();
     }
 
     @Override

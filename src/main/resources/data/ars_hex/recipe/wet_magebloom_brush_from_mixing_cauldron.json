@@ -6,8 +6,9 @@
     }
   ],
   "type": "hexerei:mixingcauldron",
-  "liquid": {
-    "fluid": "minecraft:water"
+  "fluid": {
+    "id": "minecraft:water",
+    "amount": 500
   },
   "ingredients": [
     {
@@ -36,10 +37,6 @@
     }
   ],
   "output": {
-    "item": "ars_hex:wet_magebloom_brush"
-  },
-  "liquidOutput": {
-    "fluid": "minecraft:water"
-  },
-  "fluidLevelsConsumed": 1000
+    "id": "ars_hex:wet_magebloom_brush"
+  }
 }

@@ -27,7 +27,7 @@ public class Setup {
         AHBlockTagsProvider blockTagsProvider = new AHBlockTagsProvider(gen, provider, existingFileHelper);
         gen.addProvider(event.includeClient(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new AHItemTagProvider(gen, provider, existingFileHelper, blockTagsProvider));
-
+        gen.addProvider(event.includeServer(), new AHDamageTypeTagsProvider(gen, provider, existingFileHelper));
         gen.addProvider(event.includeServer(), new ArsProviders.ImbuementProvider(gen));
         gen.addProvider(event.includeServer(), new ArsProviders.GlyphProvider(gen));
         gen.addProvider(event.includeServer(), new ArsProviders.EnchantingAppProvider(gen));

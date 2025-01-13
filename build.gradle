@@ -145,6 +145,14 @@ repositories {
         name = "OctoStudios"
         url = uri("https://maven.octo-studios.com/releases")
     }
+    maven {
+        name = "KosmX's maven"
+        url = uri("https://maven.kosmx.dev/")
+    }
+    maven {
+        name = "Iron's Maven - Release"
+        url = "https://code.redspace.io/releases"
+    }
     maven { url 'https://jitpack.io' }
 
 }
@@ -161,12 +169,19 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
 
     //implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    implementation "com.alexthw.ars_elemental:ars_elemental-${minecraft_version}:${elemental_version}"
 
     // cyanide to debug worldgen, localRuntime configuration won't mark is a dependency
     // localRuntime "curse.maven:cyanide-541676:5782674"
     implementation "team.lodestar.lodestone:lodestone:${minecraft_version}-${lodestone_version}"
     implementation "com.sammy.malum:malum:${minecraft_version}-${malum_version}"
+
+    implementation "dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}"
+    implementation "io.redspace:irons_spellbooks:${irons_spells_version}"
+
     implementation "joefoxe:hexerei:1.21.1-0.5"
+    localRuntime "curse.maven:mmmmmmmmmmmm-225738:5779508"
+    localRuntime "curse.maven:selene-499980:5983849"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

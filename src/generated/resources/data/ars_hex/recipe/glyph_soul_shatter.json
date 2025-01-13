@@ -1,7 +1,8 @@
 {
   "neoforge:conditions": [
     {
-      "neoforge:mod_loaded": "malum"
+      "type": "neoforge:mod_loaded",
+      "modid": "malum"
     }
   ],
   "type": "ars_nouveau:glyph",

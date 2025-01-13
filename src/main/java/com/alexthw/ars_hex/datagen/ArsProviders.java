@@ -3,6 +3,7 @@ package com.alexthw.ars_hex.datagen;
 import com.alexthw.ars_hex.ArsHex;
 import com.alexthw.ars_hex.ArsNouveauRegistry;
 import com.alexthw.ars_hex.glyphs.EffectSoulShatter;
+import com.alexthw.ars_hex.malum.MalumCompat;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,20 +15,20 @@ import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.EnchantingApparatusRecipe;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.GlyphRecipe;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.ImbuementRecipe;
-import com.hollingsworth.arsnouveau.common.datagen.ApparatusRecipeBuilder;
-import com.hollingsworth.arsnouveau.common.datagen.ApparatusRecipeProvider;
-import com.hollingsworth.arsnouveau.common.datagen.GlyphRecipeProvider;
-import com.hollingsworth.arsnouveau.common.datagen.ImbuementRecipeProvider;
+import com.hollingsworth.arsnouveau.common.datagen.*;
 import com.hollingsworth.arsnouveau.common.datagen.patchouli.*;
 import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
 import com.mojang.serialization.JsonOps;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -37,6 +38,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.alexthw.ars_hex.datagen.Setup.provider;
 import static com.hollingsworth.arsnouveau.setup.registry.RegistryHelper.getRegistryName;
+import static com.sammy.malum.registry.common.item.ItemRegistry.SOUL_STAINED_STEEL_SCYTHE;
 
 public class ArsProviders {
 
@@ -56,15 +58,8 @@ public class ArsProviders {
 
             for (GlyphRecipe recipe : recipes) {
                 Path path = getScribeGlyphPath(output, recipe.output.getItem());
-                JsonElement element = GlyphRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe).getOrThrow();
-                // wrap with a neoforge:condition block
-                var condition = new JsonObject();
-                condition.addProperty("neoforge:mod_loaded", "malum");
-                var array = new JsonArray();
-                array.add(condition);
-                element.getAsJsonObject().add("neoforge:conditions", array);
-
-                saveStable(cache, element, path);
+                JsonElement wrapped = wrapModCondition(GlyphRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe).getOrThrow(), MalumMod.MALUM);
+                saveStable(cache, wrapped, path);
             }
         }
 
@@ -78,6 +73,17 @@ public class ArsProviders {
         }
     }
 
+    private static JsonElement wrapModCondition(JsonElement element, String modid) {
+        // wrap with a neoforge:condition block
+        var condition = new JsonObject();
+        condition.addProperty("type", "neoforge:mod_loaded");
+        condition.addProperty("modid", modid);
+        var array = new JsonArray();
+        array.add(condition);
+        element.getAsJsonObject().add("neoforge:conditions", array);
+        return element;
+    }
+
     public static class EnchantingAppProvider extends ApparatusRecipeProvider {
 
         public EnchantingAppProvider(DataGenerator generatorIn) {
@@ -86,22 +92,24 @@ public class ArsProviders {
 
         @Override
         public void collectJsons(CachedOutput cache) {
-            //example of an apparatus recipe
-            /*
+
             recipes.add(builder()
-                    .withReagent(ItemsRegistry.SOURCE_GEM)
-                    .withPedestalItem(4, Recipes.SOURCE_GEM)
-                    .withResult(ItemsRegistry.BUCKET_OF_SOURCE)
-                    .withSource(100)
+                    .withReagent(SOUL_STAINED_STEEL_SCYTHE.get())
+                    .withPedestalItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD))
+                    .withPedestalItem(RecipeDatagen.SOURCE_GEM_BLOCK)
+                    .withPedestalItem(3, RecipeDatagen.ARCHWOOD_LOG)
+                    .withResult(MalumCompat.ENCHANTER_SCYTHE.get())
+                    .keepNbtOfReagent(true)
                     .build()
             );
-             */
+
 
             Path output = this.generator.getPackOutput().getOutputFolder();
             for (ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe> g : recipes) {
                 if (g != null) {
                     Path path = getRecipePath(output, g.id().getPath());
-                    saveStable(cache, g.serialize(), path);
+                    JsonElement wrapped = wrapModCondition(g.serialize(), MalumMod.MALUM);
+                    saveStable(cache, wrapped, path);
                 }
             }
 

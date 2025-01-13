@@ -6,13 +6,13 @@
     }
   ],
   "type": "hexerei:drying_rack",
-  "ingredients": [
+  "input": [
     {
       "item": "ars_hex:wet_magebloom_brush"
     }
   ],
   "output": {
-    "item": "ars_hex:magebloom_brush"
+    "id": "ars_hex:magebloom_brush"
   },
-  "dryingTimeInTicks": 1000
+  "dryingTime": 1000
 }
