@@ -1,6 +1,7 @@
 package com.alexthw.ars_hex;
 
 import com.alexthw.ars_hex.hexerei.HexereiCompat;
+import com.alexthw.ars_hex.iss.ISSCompat;
 import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.registry.ModRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ArsHex.MODID)
@@ -29,6 +31,10 @@ public class ArsHex {
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::layerDefinitions);
         modEventBus.addListener(this::registerClientExtensions);
+        if (ModList.get().isLoaded("irons_spellbooks")) {
+            NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksArs);
+            NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksEISS);
+        }
     }
 
     public static ResourceLocation prefix(String path) {
@@ -42,6 +48,9 @@ public class ArsHex {
         }
         if (ModList.get().isLoaded("hexerei")) {
             event.enqueueWork(HexereiCompat::postInit);
+        }
+        if (ModList.get().isLoaded("irons_spellbooks")) {
+            event.enqueueWork(ISSCompat::postInit);
         }
     }
 
