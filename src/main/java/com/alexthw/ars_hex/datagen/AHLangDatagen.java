@@ -25,10 +25,11 @@ public class AHLangDatagen extends LangDatagen {
         add("item.ars_hex.archwood_staff", "Archwood Staff");
         add("item.ars_hex.enchanter_scythe", "Enchanter's Scythe");
         add("item.ars_hex.archwood_broom", "Archwood Broom");
+        add("entity.ars_hex.archwood_broom", "Enchanter's Broom");
         add("item.ars_hex.magebloom_brush", "Magebloom Broom Brush");
         add("item.ars_hex.wet_magebloom_brush", "Wet Magebloom Broom Brush");
         add("tooltip.ars_hex.magebloom_brush", "Might recharge itself with the mana of the rider");
-
+        add("tooltip.hexerei.key_for_spell", "Press %s to cast the inscribed spell while riding it.");
         for (Supplier<Glyph> supplier : GlyphRegistry.getGlyphItemMap().values()) {
             Glyph glyph = supplier.get();
             AbstractSpellPart spellPart = glyph.spellPart;

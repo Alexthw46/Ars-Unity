@@ -31,6 +31,7 @@ public class ArsHex {
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::layerDefinitions);
         modEventBus.addListener(this::registerClientExtensions);
+        modEventBus.addListener(this::registerRenderers);
         if (ModList.get().isLoaded("irons_spellbooks")) {
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksArs);
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksEISS);
@@ -66,4 +67,9 @@ public class ArsHex {
         }
     }
 
+    private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.registerRenderers(event);
+        }
+    }
 }

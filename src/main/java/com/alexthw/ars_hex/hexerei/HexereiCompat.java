@@ -1,6 +1,7 @@
 package com.alexthw.ars_hex.hexerei;
 
 import com.alexthw.ars_hex.hexerei.broom.ArchwoodBroomStick;
+import com.alexthw.ars_hex.hexerei.broom.EnchanterBroomEntity;
 import com.alexthw.ars_hex.hexerei.broom.MagebloomBrush;
 import com.hollingsworth.arsnouveau.api.registry.SpellCasterRegistry;
 import com.hollingsworth.arsnouveau.api.spell.SpellCaster;
@@ -9,15 +10,20 @@ import com.hollingsworth.arsnouveau.setup.config.Config;
 import com.hollingsworth.arsnouveau.setup.registry.DataComponentRegistry;
 import com.mojang.datafixers.util.Either;
 import net.joefoxe.hexerei.client.renderer.entity.BroomType;
+import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
+import net.joefoxe.hexerei.client.renderer.entity.render.BroomRenderer;
 import net.joefoxe.hexerei.item.custom.BroomItemRenderer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -30,10 +36,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.alexthw.ars_hex.registry.ModRegistry.ITEMS;
-
+import static com.alexthw.ars_hex.ArsHex.prefix;
+import static com.alexthw.ars_hex.registry.ModRegistry.*;
 
 public class HexereiCompat {
+
+    public static DeferredHolder<EntityType<?>, EntityType<BroomEntity>> ARCHWOOD_BROOM_ENTITY;
 
     public static void init() {
         ARCHWOOD_BROOM = ITEMS.register("archwood_broom", () -> new ArchwoodBroomStick("archwood", new Item.Properties().stacksTo(1).component(DataComponentRegistry.SPELL_CASTER, new SpellCaster())));
@@ -44,6 +52,7 @@ public class HexereiCompat {
                 super.appendHoverText(stack, context, tooltip, flagIn);
             }
         });
+        ARCHWOOD_BROOM_ENTITY = ENTITY_TYPES.register("archwood_broom", () -> EntityType.Builder.of((EntityType<BroomEntity> broomEntityEntityType, Level world) -> new EnchanterBroomEntity(broomEntityEntityType, world), MobCategory.MISC).sized(1.175F, 0.3625F).setShouldReceiveVelocityUpdates(true).setTrackingRange(10).updateInterval(1).build(prefix("archwood_broom").toString()));
 
         NeoForge.EVENT_BUS.addListener(HexereiCompat::registerTooltipComponents);
     }
@@ -80,4 +89,7 @@ public class HexereiCompat {
 
     public static DeferredHolder<Item, ? extends Item> ARCHWOOD_BROOM, MAGEBLOOM_BRUSH, WET_MAGEBLOOM_BRUSH;
 
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ARCHWOOD_BROOM_ENTITY.get(), BroomRenderer::new);
+    }
 }

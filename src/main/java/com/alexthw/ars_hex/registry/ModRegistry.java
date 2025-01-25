@@ -1,21 +1,18 @@
 package com.alexthw.ars_hex.registry;
 
-import com.alexthw.ars_hex.item.ExampleCosmetic;
-import com.hollingsworth.arsnouveau.api.sound.SpellSound;
 import com.hollingsworth.arsnouveau.setup.registry.CreativeTabRegistry;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 import static com.alexthw.ars_hex.ArsHex.MODID;
-import static com.alexthw.ars_hex.ArsHex.prefix;
+import static net.minecraft.core.registries.Registries.ENTITY_TYPE;
 import static net.minecraft.core.registries.Registries.SOUND_EVENT;
 
 public class ModRegistry {
@@ -23,11 +20,12 @@ public class ModRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(SOUND_EVENT, MODID);
-
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ENTITY_TYPE, MODID);
 
     public static void registerRegistries(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
+        ENTITY_TYPES.register(bus);
         SOUNDS.register(bus);
         bus.addListener(ModRegistry::doTabsStuff);
     }
