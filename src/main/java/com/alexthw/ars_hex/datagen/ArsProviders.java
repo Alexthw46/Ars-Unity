@@ -21,6 +21,7 @@ import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
 import com.mojang.serialization.JsonOps;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -167,8 +168,8 @@ public class ArsProviders {
 
     public static class PatchouliProvider extends com.hollingsworth.arsnouveau.common.datagen.PatchouliProvider {
 
-        public PatchouliProvider(DataGenerator generatorIn) {
-            super(generatorIn);
+        public PatchouliProvider(DataGenerator generatorIn, CompletableFuture<HolderLookup.Provider> providerIn) {
+            super(generatorIn, providerIn);
         }
 
         @Override

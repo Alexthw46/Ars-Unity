@@ -4,6 +4,7 @@ import com.alexthw.ars_hex.hexerei.HexereiCompat;
 import com.alexthw.ars_hex.iss.ISSCompat;
 import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.registry.ModRegistry;
+import com.hollingsworth.arsnouveau.api.documentation.ReloadDocumentationEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -36,6 +37,7 @@ public class ArsHex {
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksArs);
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksEISS);
         }
+        NeoForge.EVENT_BUS.addListener(ArsHex::initDocs);
     }
 
     public static ResourceLocation prefix(String path) {
@@ -72,4 +74,17 @@ public class ArsHex {
             HexereiCompat.registerRenderers(event);
         }
     }
+
+    public static void initDocs(ReloadDocumentationEvent.AddEntries event) {
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.initDocs();
+        }
+        if (ModList.get().isLoaded("malum")) {
+            MalumCompat.initDocs();
+        }
+        if (ModList.get().isLoaded("irons_spellbooks")) {
+            ISSCompat.initDocs();
+        }
+    }
+
 }

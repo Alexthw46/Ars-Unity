@@ -37,7 +37,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
-import static com.alexthw.ars_hex.registry.ModRegistry.*;
+import static com.alexthw.ars_hex.registry.ModRegistry.ENTITY_TYPES;
+import static com.alexthw.ars_hex.registry.ModRegistry.ITEMS;
 
 public class HexereiCompat {
 
@@ -54,6 +55,7 @@ public class HexereiCompat {
         });
         ARCHWOOD_BROOM_ENTITY = ENTITY_TYPES.register("archwood_broom", () -> EntityType.Builder.of((EntityType<BroomEntity> broomEntityEntityType, Level world) -> new EnchanterBroomEntity(broomEntityEntityType, world), MobCategory.MISC).sized(1.175F, 0.3625F).setShouldReceiveVelocityUpdates(true).setTrackingRange(10).updateInterval(1).build(prefix("archwood_broom").toString()));
 
+
         NeoForge.EVENT_BUS.addListener(HexereiCompat::registerTooltipComponents);
     }
 
@@ -63,7 +65,6 @@ public class HexereiCompat {
         event.registerLayerDefinition(HexereiModels.ArchwoodStick.LAYER_LOCATION, HexereiModels.ArchwoodStick::createBodyLayerNone);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         final BroomItemRenderer broomRenderer = new BroomItemRenderer();
         event.registerItem(new IClientItemExtensions() {
@@ -74,7 +75,6 @@ public class HexereiCompat {
 
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerTooltipComponents(RenderTooltipEvent.GatherComponents event) {
         if (event.getItemStack().getItem() instanceof ArchwoodBroomStick && SpellCasterRegistry.from(event.getItemStack()) instanceof SpellCaster caster) {
             if (!Screen.hasShiftDown() && Config.GLYPH_TOOLTIPS.get() && !caster.isSpellHidden() && !caster.getSpell().isEmpty())
@@ -91,5 +91,10 @@ public class HexereiCompat {
 
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ARCHWOOD_BROOM_ENTITY.get(), BroomRenderer::new);
+    }
+
+    public static void initDocs() {
+
+
     }
 }

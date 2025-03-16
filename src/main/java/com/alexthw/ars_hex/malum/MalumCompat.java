@@ -44,4 +44,8 @@ public class MalumCompat {
                 castSpell(living, scytheBoomerang.getItem());
             }
     }
+
+    public static void initDocs() {
+
+    }
 }

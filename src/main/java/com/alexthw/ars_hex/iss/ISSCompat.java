@@ -57,4 +57,8 @@ public class ISSCompat {
             ElementalModule.addArmorModifiers(event);
         }
     }
+
+    public static void initDocs() {
+
+    }
 }
