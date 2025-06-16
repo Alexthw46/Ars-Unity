@@ -5,7 +5,6 @@ import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.DamageUtil;
 import com.hollingsworth.arsnouveau.common.spell.augment.AugmentAmplify;
 import com.hollingsworth.arsnouveau.common.spell.augment.AugmentDampen;
-import com.sammy.malum.registry.common.DamageTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,6 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
+import static com.sammy.malum.registry.common.MalumDamageTypes.VOODOO;
 
 public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
 
@@ -44,7 +44,7 @@ public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
     }
 
     public DamageSource buildDamageSource(Level world, LivingEntity shooter) {
-        return DamageUtil.source(world, DamageTypeRegistry.VOODOO, ANFakePlayer.getOrFakePlayer((ServerLevel) world, shooter));
+        return DamageUtil.source(world, VOODOO, ANFakePlayer.getOrFakePlayer((ServerLevel) world, shooter));
     }
 
     public void buildConfig(ModConfigSpec.Builder builder) {
