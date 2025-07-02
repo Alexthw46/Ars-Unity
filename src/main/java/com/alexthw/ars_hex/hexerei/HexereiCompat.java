@@ -3,9 +3,12 @@ package com.alexthw.ars_hex.hexerei;
 import com.alexthw.ars_hex.hexerei.broom.ArchwoodBroomStick;
 import com.alexthw.ars_hex.hexerei.broom.EnchanterBroomEntity;
 import com.alexthw.ars_hex.hexerei.broom.MagebloomBrush;
+import com.hollingsworth.arsnouveau.api.particle.PropertyParticleType;
+import com.hollingsworth.arsnouveau.api.particle.configurations.properties.ParticleTypeProperty;
 import com.hollingsworth.arsnouveau.api.registry.SpellCasterRegistry;
 import com.hollingsworth.arsnouveau.api.spell.SpellCaster;
 import com.hollingsworth.arsnouveau.client.gui.SpellTooltip;
+import com.hollingsworth.arsnouveau.client.particle.WrappedProvider;
 import com.hollingsworth.arsnouveau.setup.config.Config;
 import com.hollingsworth.arsnouveau.setup.registry.DataComponentRegistry;
 import com.mojang.datafixers.util.Either;
@@ -13,8 +16,10 @@ import net.joefoxe.hexerei.client.renderer.entity.BroomType;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
 import net.joefoxe.hexerei.client.renderer.entity.render.BroomRenderer;
 import net.joefoxe.hexerei.item.custom.BroomItemRenderer;
+import net.joefoxe.hexerei.particle.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -26,7 +31,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -37,14 +45,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
-import static com.alexthw.ars_hex.registry.ModRegistry.ENTITY_TYPES;
-import static com.alexthw.ars_hex.registry.ModRegistry.ITEMS;
+import static com.alexthw.ars_hex.registry.ModRegistry.*;
 
 public class HexereiCompat {
 
     public static DeferredHolder<EntityType<?>, EntityType<BroomEntity>> ARCHWOOD_BROOM_ENTITY;
 
-    public static void init() {
+    public static void init(IEventBus modEventBus) {
+        // Register items
         ARCHWOOD_BROOM = ITEMS.register("archwood_broom", () -> new ArchwoodBroomStick("archwood", new Item.Properties().stacksTo(1).component(DataComponentRegistry.SPELL_CASTER, new SpellCaster())));
         MAGEBLOOM_BRUSH = ITEMS.register("magebloom_brush", () -> new MagebloomBrush(new Item.Properties().durability(100)));
         WET_MAGEBLOOM_BRUSH = ITEMS.register("wet_magebloom_brush", () -> new Item(new Item.Properties()) {
@@ -53,10 +61,41 @@ public class HexereiCompat {
                 super.appendHoverText(stack, context, tooltip, flagIn);
             }
         });
+        // Register entity types
         ARCHWOOD_BROOM_ENTITY = ENTITY_TYPES.register("archwood_broom", () -> EntityType.Builder.of((EntityType<BroomEntity> broomEntityEntityType, Level world) -> new EnchanterBroomEntity(broomEntityEntityType, world), MobCategory.MISC).sized(1.175F, 0.3625F).setShouldReceiveVelocityUpdates(true).setTrackingRange(10).updateInterval(1).build(prefix("archwood_broom").toString()));
 
-
+        // Register listeners
+        modEventBus.addListener(EventPriority.LOWEST, HexereiCompat::registerParticles);
         NeoForge.EVENT_BUS.addListener(HexereiCompat::registerTooltipComponents);
+
+        // Register particle types
+        BROOM_LEAVES_1 = PARTICLES.register("broom_leaves", PropertyParticleType::new);
+        BROOM_LEAVES_2 = PARTICLES.register("broom_leaves_2", PropertyParticleType::new);
+        BROOM_LEAVES_3 = PARTICLES.register("broom_leaves_3", PropertyParticleType::new);
+        FOG = PARTICLES.register("fog_spell", PropertyParticleType::new);
+        BLOOD = PARTICLES.register("blood_spell", PropertyParticleType::new);
+        OWL_1 = PARTICLES.register("owl_teleport", PropertyParticleType::new);
+        OWL_2 = PARTICLES.register("owl_teleport_barn", PropertyParticleType::new);
+        OWL_3 = PARTICLES.register("owl_teleport_snow", PropertyParticleType::new);
+        BROOM_MOON_1 = PARTICLES.register("moon_leaves", PropertyParticleType::new);
+        BROOM_MOON_2 = PARTICLES.register("moon_leaves_2", PropertyParticleType::new);
+        BROOM_MOON_3 = PARTICLES.register("moon_leaves_3", PropertyParticleType::new);
+        STAR_BRUSH = PARTICLES.register("star_brush", PropertyParticleType::new);
+    }
+
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(BROOM_LEAVES_1.get(), (sprites -> new WrappedProvider(ModParticleTypes.BROOM_3.get(), BroomParticle.Factory::new)));
+        event.registerSpriteSet(BROOM_LEAVES_2.get(), (sprites -> new WrappedProvider(ModParticleTypes.BROOM_4.get(), BroomParticle.Factory::new)));
+        event.registerSpriteSet(BROOM_LEAVES_3.get(), (sprites -> new WrappedProvider(ModParticleTypes.BROOM_5.get(), BroomParticle.Factory::new)));
+        event.registerSpriteSet(FOG.get(), (sprites -> new WrappedProvider(ModParticleTypes.FOG.get(), FogParticle.Factory::new)));
+        event.registerSpriteSet(BLOOD.get(), (sprites -> new WrappedProvider(ModParticleTypes.BLOOD.get(), BloodParticle.Factory::new)));
+        event.registerSpriteSet(OWL_1.get(), (sprites -> new WrappedProvider(ModParticleTypes.OWL_TELEPORT.get(), OwlTeleportParticle.Factory::new)));
+        event.registerSpriteSet(OWL_2.get(), (sprites -> new WrappedProvider(ModParticleTypes.OWL_TELEPORT_BARN.get(), OwlTeleportParticle.Factory::new)));
+        event.registerSpriteSet(OWL_3.get(), (sprites -> new WrappedProvider(ModParticleTypes.OWL_TELEPORT_SNOWY.get(), OwlTeleportParticle.Factory::new)));
+        event.registerSpriteSet(BROOM_MOON_1.get(), (sprites -> new WrappedProvider(ModParticleTypes.MOON_BRUSH_2.get(), MoonBroomParticle.Factory::new)));
+        event.registerSpriteSet(BROOM_MOON_2.get(), (sprites -> new WrappedProvider(ModParticleTypes.MOON_BRUSH_3.get(), MoonBroomParticle.Factory::new)));
+        event.registerSpriteSet(BROOM_MOON_3.get(), (sprites -> new WrappedProvider(ModParticleTypes.MOON_BRUSH_4.get(), MoonBroomParticle.Factory::new)));
+        event.registerSpriteSet(STAR_BRUSH.get(), (sprites -> new WrappedProvider(ModParticleTypes.STAR_BRUSH.get(), StarBroomParticle.Provider::new)));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -85,6 +124,18 @@ public class HexereiCompat {
 
     public static void postInit() {
         BroomType.create("archwood", ARCHWOOD_BROOM.get(), 0.6f);
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_LEAVES_1.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_LEAVES_2.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_LEAVES_3.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(FOG.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BLOOD.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(OWL_1.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(OWL_2.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(OWL_3.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_MOON_1.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_MOON_2.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_MOON_3.get(), true));
+        ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(STAR_BRUSH.get(), true));
     }
 
     public static DeferredHolder<Item, ? extends Item> ARCHWOOD_BROOM, MAGEBLOOM_BRUSH, WET_MAGEBLOOM_BRUSH;
@@ -93,8 +144,13 @@ public class HexereiCompat {
         event.registerEntityRenderer(ARCHWOOD_BROOM_ENTITY.get(), BroomRenderer::new);
     }
 
+    public static DeferredHolder<ParticleType<?>, PropertyParticleType> BROOM_LEAVES_1, BROOM_LEAVES_2, BROOM_LEAVES_3,
+            OWL_1, OWL_2, OWL_3,
+            BROOM_MOON_1, BROOM_MOON_2, BROOM_MOON_3,
+            FOG, BLOOD, STAR_BRUSH;
+
     public static void initDocs() {
 
-
     }
+
 }

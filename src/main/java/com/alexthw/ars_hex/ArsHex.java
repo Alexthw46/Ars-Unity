@@ -26,7 +26,7 @@ public class ArsHex {
             MalumCompat.init();
         }
         if (ModList.get().isLoaded("hexerei")) {
-            HexereiCompat.init();
+            HexereiCompat.init(modEventBus);
         }
         ArsNouveauRegistry.registerCompatGlyphs();
         modEventBus.addListener(this::setup);
@@ -34,6 +34,7 @@ public class ArsHex {
         modEventBus.addListener(this::registerClientExtensions);
         modEventBus.addListener(this::registerRenderers);
         if (ModList.get().isLoaded("irons_spellbooks")) {
+            ISSCompat.init(modEventBus);
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksArs);
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksEISS);
         }

@@ -1,7 +1,6 @@
 package com.alexthw.ars_hex.datagen;
 
 import com.alexthw.ars_hex.ArsHex;
-import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.api.registry.GlyphRegistry;
 import com.hollingsworth.arsnouveau.api.spell.AbstractAugment;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
@@ -46,6 +45,29 @@ public class AHLangDatagen extends LangDatagen {
                 }
             }
         }
+
+        // Hexerei particles
+        add("ars_hex.particle.broom_leaves", "Hexerei Broom Leaves");
+        add("ars_hex.particle.broom_leaves_2", "Hexerei Broom Leaves 2");
+        add("ars_hex.particle.broom_leaves_3", "Hexerei Broom Leaves 3");
+        add("ars_hex.particle.moon_leaves", "Hexerei Moon Brush Leaves");
+        add("ars_hex.particle.moon_leaves_2", "Hexerei Moon Brush Leaves 2");
+        add("ars_hex.particle.moon_leaves_3", "Hexerei Moon Brush Leaves 3");
+        add("ars_hex.particle.star_brush", "Hexerei Moon Brush Stars");
+        add("ars_hex.particle.blood_spell", "Hexerei Blood");
+        add("ars_hex.particle.fog_spell", "Hexerei Fog");
+        add("ars_hex.particle.owl_teleport", "Hexerei Owl Teleport");
+        add("ars_hex.particle.owl_teleport_barn", "Hexerei Owl Teleport Barn");
+        add("ars_hex.particle.owl_teleport_snow", "Hexerei Owl Teleport Snow");
+
+
+        // ISS particles
+        add("ars_hex.particle.iss_wisp", "IronSS Wisp");
+        add("ars_hex.particle.iss_snowflake", "IronSS Snowflake");
+        add("ars_hex.particle.iss_electricity", "IronSS Electricity");
+        add("ars_hex.particle.iss_fire", "IronSS Fire");
+        add("ars_hex.particle.iss_firefly", "IronSS Firefly");
+
     }
 
 }

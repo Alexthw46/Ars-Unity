@@ -1,6 +1,7 @@
 package com.alexthw.ars_hex.registry;
 
 import com.hollingsworth.arsnouveau.setup.registry.CreativeTabRegistry;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -12,8 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 import static com.alexthw.ars_hex.ArsHex.MODID;
-import static net.minecraft.core.registries.Registries.ENTITY_TYPE;
-import static net.minecraft.core.registries.Registries.SOUND_EVENT;
+import static net.minecraft.core.registries.Registries.*;
 
 public class ModRegistry {
 
@@ -21,10 +21,13 @@ public class ModRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(SOUND_EVENT, MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ENTITY_TYPE, MODID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(PARTICLE_TYPE, MODID);
+
 
     public static void registerRegistries(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
+        PARTICLES.register(bus);
         ENTITY_TYPES.register(bus);
         SOUNDS.register(bus);
         bus.addListener(ModRegistry::doTabsStuff);

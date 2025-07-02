@@ -45,3 +45,19 @@ modId = "ars_nouveau"
 versionRange = "[1.21.1-5.4,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.ars_hex]]
+modId = "hexerei"
+versionRange = "[0.5.0,)"
+ordering = "AFTER"
+side = "BOTH"
+type = "optional"
+reason = "integration"
+
+[[dependencies.ars_hex]]
+modId = "malum"
+versionRange = "[1.7.0,)"
+ordering = "AFTER"
+side = "BOTH"
+type = "optional"
+reason = "integration"
