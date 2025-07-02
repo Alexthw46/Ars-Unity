@@ -18,7 +18,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.neoforged.bus.api.EventPriority;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -37,14 +38,11 @@ public class ISSCompat {
     public static Map<SchoolType, Pair<Holder<Attribute>, Holder<Attribute>>> schoolAttributes = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
-        modEventBus.addListener(EventPriority.LOWEST, ISSCompat::registerParticles);
-
         WISP_PARTICLE = PARTICLES.register("wisp_iss", PropertyParticleType::new);
         SNOWFLAKE_PARTICLE = PARTICLES.register("snowflake_iss", PropertyParticleType::new);
         ELECTRICITY_PARTICLE = PARTICLES.register("electricity_iss", PropertyParticleType::new);
         FIRE_PARTICLE = PARTICLES.register("fire_iss", PropertyParticleType::new);
         FIREFLY_PARTICLE = PARTICLES.register("firefly_iss", PropertyParticleType::new);
-
     }
 
     public static void postInit() {
@@ -67,6 +65,7 @@ public class ISSCompat {
 
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(WISP_PARTICLE.get(), (sprites -> new WrappedProvider(ParticleRegistry.WISP_PARTICLE.get(), WispParticle.Provider::new)));
         event.registerSpriteSet(SNOWFLAKE_PARTICLE.get(), (sprites -> new WrappedProvider(ParticleRegistry.SNOWFLAKE_PARTICLE.get(), SnowflakeParticle.Provider::new)));

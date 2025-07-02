@@ -6,12 +6,14 @@ import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.registry.ModRegistry;
 import com.hollingsworth.arsnouveau.api.documentation.ReloadDocumentationEvent;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -33,6 +35,7 @@ public class ArsHex {
         modEventBus.addListener(this::layerDefinitions);
         modEventBus.addListener(this::registerClientExtensions);
         modEventBus.addListener(this::registerRenderers);
+        modEventBus.addListener(EventPriority.LOWEST, this::registerParticles);
         if (ModList.get().isLoaded("irons_spellbooks")) {
             ISSCompat.init(modEventBus);
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksArs);
@@ -88,4 +91,12 @@ public class ArsHex {
         }
     }
 
+    public void registerParticles(RegisterParticleProvidersEvent event) {
+        if (ModList.get().isLoaded("irons_spellbooks")) {
+            ISSCompat.registerParticles(event);
+        }
+        if (ModList.get().isLoaded("hexerei")) {
+            HexereiCompat.registerParticles(event);
+        }
+    }
 }

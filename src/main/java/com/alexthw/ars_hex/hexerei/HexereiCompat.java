@@ -31,7 +31,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -65,7 +64,6 @@ public class HexereiCompat {
         ARCHWOOD_BROOM_ENTITY = ENTITY_TYPES.register("archwood_broom", () -> EntityType.Builder.of((EntityType<BroomEntity> broomEntityEntityType, Level world) -> new EnchanterBroomEntity(broomEntityEntityType, world), MobCategory.MISC).sized(1.175F, 0.3625F).setShouldReceiveVelocityUpdates(true).setTrackingRange(10).updateInterval(1).build(prefix("archwood_broom").toString()));
 
         // Register listeners
-        modEventBus.addListener(EventPriority.LOWEST, HexereiCompat::registerParticles);
         NeoForge.EVENT_BUS.addListener(HexereiCompat::registerTooltipComponents);
 
         // Register particle types
@@ -83,6 +81,7 @@ public class HexereiCompat {
         STAR_BRUSH = PARTICLES.register("star_brush", PropertyParticleType::new);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(BROOM_LEAVES_1.get(), (sprites -> new WrappedProvider(ModParticleTypes.BROOM_3.get(), BroomParticle.Factory::new)));
         event.registerSpriteSet(BROOM_LEAVES_2.get(), (sprites -> new WrappedProvider(ModParticleTypes.BROOM_4.get(), BroomParticle.Factory::new)));
