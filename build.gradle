@@ -8,11 +8,14 @@ plugins {
 }
 
 base {
-    version = "${minecraft_version}-${mod_version}"
+    version = mod_version
     group = 'com.alexthw.ars_hex' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-    archivesBaseName = 'ars_hex'
+    archivesName = mod_id + '-' + minecraft_version
 }
 
+if (System.getenv('BUILD_NUMBER') != null) {
+    version += "." + System.getenv('BUILD_NUMBER')
+}
 // Mojang ships Java 21 to end users in 1.21+
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 // Comment the line below if you don't need to share the source jar (e.g. if nothing needs you as a dependency)
