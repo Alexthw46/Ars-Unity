@@ -1,8 +1,9 @@
-// 1.21.1	2025-01-13T12:06:33.0375092	Tags for minecraft:damage_type mod id ars_hex
+// 1.21.1	2025-08-12T19:05:46.3721261	Tags for minecraft:damage_type mod id ars_hex
 dbdc0fc0bbdf0795003177f9ead8b6d78ab31715 data/ars_elemental/tags/damage_type/air_damage.json
 82617ba803565519c607737f5e93daa95c75513e data/ars_elemental/tags/damage_type/earth_damage.json
 10f0188e70947417c03f62b9706967e77259f5eb data/ars_elemental/tags/damage_type/fire_damage.json
 4471f9fd871e2e2418379c0a49c31475ce8f2d56 data/ars_elemental/tags/damage_type/water_damage.json
+20856764bffd0010b1ed70da0486101e7ac9a2cf data/c/tags/damage_type/is_magic.json
 b673d7a802f986d3df4738f6deb49ec469ee0eb3 data/irons_spellbooks/tags/damage_type/fire_magic.json
 df18c48c123c4f2586bbcec49ba5d5768308be5a data/irons_spellbooks/tags/damage_type/ice_magic.json
 e941ab12d557deb5f49a5f7022e85ecb2ad21333 data/irons_spellbooks/tags/damage_type/lightning_magic.json

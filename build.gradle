@@ -188,6 +188,7 @@ dependencies {
 
     // cyanide to debug worldgen, localRuntime configuration won't mark is a dependency
     // localRuntime "curse.maven:cyanide-541676:5782674"
+    implementation "com.alexthw.eidolon_repraised:eidolon_repraised-${minecraft_version}:${eidolon_version}"
     implementation "team.lodestar.lodestone:lodestone:${minecraft_version}-${lodestone_version}"
     implementation "com.sammy.malum:malum:${minecraft_version}-${malum_version}"
 
