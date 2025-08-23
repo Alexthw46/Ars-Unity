@@ -11,6 +11,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -23,6 +24,7 @@ public class ArsHex {
     public static final String MODID = "ars_hex";
 
     public ArsHex(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, HexConfigs.COMMON_SPEC);
         ModRegistry.registerRegistries(modEventBus);
         if (ModList.get().isLoaded("malum")) {
             MalumCompat.init();
