@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "hexerei:selenite_shard",
+      "id": "hexerei:selenite_cluster",
       "required": false
     }
   ]
