@@ -3,13 +3,20 @@ package com.alexthw.ars_hex.datagen;
 import com.alexthw.ars_hex.ArsHex;
 import com.alexthw.ars_hex.glyphs.EffectSoulShatter;
 import com.alexthw.ars_hex.malum.MalumCompat;
+import com.alexthw.ars_hex.malum.perks.MagicProficencyPerk;
+import com.alexthw.ars_hex.malum.perks.SoulWardPerk;
+import com.alexthw.ars_hex.malum.perks.SpiritSpoilsPerk;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.EnchantingApparatusRecipe;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.GlyphRecipe;
 import com.hollingsworth.arsnouveau.common.crafting.recipes.ImbuementRecipe;
-import com.hollingsworth.arsnouveau.common.datagen.*;
+import com.hollingsworth.arsnouveau.common.datagen.ApparatusRecipeBuilder;
+import com.hollingsworth.arsnouveau.common.datagen.ApparatusRecipeProvider;
+import com.hollingsworth.arsnouveau.common.datagen.GlyphRecipeProvider;
+import com.hollingsworth.arsnouveau.common.datagen.ImbuementRecipeProvider;
+import com.hollingsworth.arsnouveau.common.datagen.RecipeDatagen;
 import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
 import com.mojang.serialization.JsonOps;
 import com.sammy.malum.MalumMod;
@@ -93,6 +100,36 @@ public class ArsProviders {
                     .build()
             );
 
+            recipes.add(builder()
+                    .withResult(getPerkItem(SoulWardPerk.INSTANCE.getRegistryName()))
+                    .withReagent(ItemsRegistry.BLANK_THREAD)
+                    .withPedestalItem(MalumItems.RUNE_OF_REINFORCEMENT.get())
+                    .withPedestalItem(2, MalumItems.REFINED_SOULSTONE.get())
+                    .withPedestalItem(2, MalumItems.SOUL_STAINED_STEEL_PLATING.get())
+                    .withPedestalItem(MalumItems.ARCANE_SPIRIT.get())
+                    .build()
+            );
+
+            recipes.add(builder()
+                    .withResult(getPerkItem(SpiritSpoilsPerk.INSTANCE.getRegistryName()))
+                    .withReagent(ItemsRegistry.BLANK_THREAD)
+                    .withPedestalItem(MalumItems.RING_OF_ESOTERIC_SPOILS.get())
+                    .withPedestalItem(MalumItems.REFINED_SOULSTONE.get())
+                    .withPedestalItem(MalumItems.ARCANE_SPIRIT.get())
+                    .withPedestalItem(MalumItems.WICKED_SPIRIT.get())
+                    .withPedestalItem(MalumItems.ELDRITCH_SPIRIT.get())
+                    .build()
+            );
+
+            recipes.add(builder()
+                    .withResult(getPerkItem(MagicProficencyPerk.INSTANCE.getRegistryName()))
+                    .withReagent(ItemsRegistry.BLANK_THREAD)
+                    .withPedestalItem(2, MalumItems.REFINED_SOULSTONE.get())
+                    .withPedestalItem(2, MalumItems.SOULWOVEN_SILK.get())
+                    .withPedestalItem(2, MalumItems.EARTHEN_SPIRIT.get())
+                    .withPedestalItem(2, MalumItems.AERIAL_SPIRIT.get())
+                    .build()
+            );
 
             Path output = this.generator.getPackOutput().getOutputFolder();
             for (ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe> g : recipes) {

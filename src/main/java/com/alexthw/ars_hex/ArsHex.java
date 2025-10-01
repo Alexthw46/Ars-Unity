@@ -32,7 +32,7 @@ public class ArsHex {
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.init(modEventBus);
         }
-        ArsNouveauRegistry.registerCompatGlyphs();
+        ArsNouveauRegistry.init();
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::layerDefinitions);
         modEventBus.addListener(this::registerClientExtensions);
