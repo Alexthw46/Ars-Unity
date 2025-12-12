@@ -12,6 +12,7 @@ import net.joefoxe.hexerei.util.HexereiTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -29,6 +30,7 @@ public class AHItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(HexereiTags.Items.BROOM_BRUSH).addOptional(HexereiCompat.MAGEBLOOM_BRUSH.getId());
+        tag(ItemTags.DURABILITY_ENCHANTABLE).addOptionalTag(HexereiTags.Items.BROOM_BRUSH);
         tag(ItemTagProvider.SHARD_TAG).addOptional(ModItems.SELENITE_SHARD.getId());
         tag(MalumTags.ItemTags.MAGIC_CAPABLE_WEAPONS).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
         tag(Tags.Items.MELEE_WEAPON_TOOLS).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());

@@ -1,5 +1,6 @@
-// 1.21.1	2025-09-07T11:36:59.8187622	Ars Hex Item Tags
+// 1.21.1	2025-12-12T16:09:12.1585418	Ars Hex Item Tags
 0c34111f36aab533a667db87d70fb977a1ca07a4 data/ars_nouveau/tags/item/golem/shard.json
 deba3aa7cf337d662872437c4f569f1f12d9db8b data/c/tags/item/tools/melee_weapon.json
 67067b8a946446c1ec0e943c8f62e7ffe7733d35 data/hexerei/tags/item/broom_brush.json
 deba3aa7cf337d662872437c4f569f1f12d9db8b data/malum/tags/item/magic_capable_weapon.json
+8836a3df72ab213ada53d6b456fcab54761b5869 data/minecraft/tags/item/enchantable/durability.json
