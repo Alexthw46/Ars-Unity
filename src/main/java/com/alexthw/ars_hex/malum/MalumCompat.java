@@ -3,9 +3,8 @@ package com.alexthw.ars_hex.malum;
 import com.hollingsworth.arsnouveau.api.item.ICasterTool;
 import com.hollingsworth.arsnouveau.common.light.LightManager;
 import com.hollingsworth.arsnouveau.setup.registry.EnchantmentRegistry;
-
-import com.sammy.malum.common.entity.scythe.ScytheBoomerang;
-import com.sammy.malum.registry.common.entity.MalumEntityTypes;
+import com.sammy.malum.common.entity.scythe.ScytheBoomerangEntity;
+import com.sammy.malum.registry.common.entity.MalumEntities;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
@@ -21,10 +20,10 @@ import static com.hollingsworth.arsnouveau.common.event.ReactiveEvents.castSpell
 public class MalumCompat {
 
     public static void postInit() {
-        LightManager.register(MalumEntityTypes.NATURAL_SPIRIT.get(), (p) -> 8);
+        LightManager.register(MalumEntities.NATURAL_SPIRIT.get(), (p) -> 8);
 
-        LightManager.register(MalumEntityTypes.ETHERIC_NITRATE.get(), (p) -> 15);
-        LightManager.register(MalumEntityTypes.VIVID_NITRATE.get(), (p) -> 15);
+        LightManager.register(MalumEntities.ETHERIC_NITRATE.get(), (p) -> 15);
+        LightManager.register(MalumEntities.VIVID_NITRATE.get(), (p) -> 15);
     }
 
     public static void init() {
@@ -39,7 +38,7 @@ public class MalumCompat {
 
     @SubscribeEvent
     public static void workaround(LivingDamageEvent.Post event) {
-        if (event.getSource().getDirectEntity() instanceof ScytheBoomerang scytheBoomerang)
+        if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang)
             if (scytheBoomerang.getItem().getItem() instanceof ICasterTool && scytheBoomerang.getOwner() instanceof LivingEntity owner) {
                 scytheBoomerang.getItem().getItem().hurtEnemy(scytheBoomerang.getItem(), event.getEntity(), owner);
             } else if (event.getSource().getEntity() instanceof LivingEntity living && living.level().holder(EnchantmentRegistry.REACTIVE_ENCHANTMENT).isPresent() && scytheBoomerang.getItem().getEnchantmentLevel(living.level().holderOrThrow(EnchantmentRegistry.REACTIVE_ENCHANTMENT)) > 0) {
