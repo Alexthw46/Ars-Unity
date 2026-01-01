@@ -30,6 +30,11 @@ public class AHLangDatagen extends LangDatagen {
         add("item.ars_hex.wet_magebloom_brush", "Wet Magebloom Broom Brush");
         add("tooltip.ars_hex.magebloom_brush", "Might recharge itself with the mana of the rider");
         add("tooltip.hexerei.key_for_spell", "Press %s to cast the inscribed spell while riding it.");
+        // Hexerei Codex entries
+        add("ars_nouveau.page.hexerei_compat", "Hexerei Compatibility");
+        add("ars_hex.page.archwood_broom", "The Archwood Broom is a flying broom made from the enchanted wood of the Archwood tree. In addition to classic brooms, it can be inscribed with a spell that will be cast using the broom hotkey.");
+        add("ars_hex.page.magebloom_brush", "The Magebloom Broom Brush is crafted from the magical Magebloom flowers. It needs to be dried on a Drying Rack before use. When attached to a broom, it can repair itself with the user mana when while riding.");
+        // Glyphs
         for (Supplier<Glyph> supplier : GlyphRegistry.getGlyphItemMap().values()) {
             Glyph glyph = supplier.get();
             AbstractSpellPart spellPart = glyph.spellPart;
@@ -76,11 +81,11 @@ public class AHLangDatagen extends LangDatagen {
 
 
         // ISS particles
-        add("ars_hex.particle.iss_wisp", "IronSS Wisp");
-        add("ars_hex.particle.iss_snowflake", "IronSS Snowflake");
-        add("ars_hex.particle.iss_electricity", "IronSS Electricity");
-        add("ars_hex.particle.iss_fire", "IronSS Fire");
-        add("ars_hex.particle.iss_firefly", "IronSS Firefly");
+        add("ars_hex.particle.wisp_iss", "IronSS Wisp");
+        add("ars_hex.particle.snowflake_iss", "IronSS Snowflake");
+        add("ars_hex.particle.electricity_iss", "IronSS Electricity");
+        add("ars_hex.particle.fire_iss", "IronSS Fire");
+        add("ars_hex.particle.ifirefly_iss", "IronSS Firefly");
 
     }
 

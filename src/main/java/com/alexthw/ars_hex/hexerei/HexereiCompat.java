@@ -1,8 +1,16 @@
 package com.alexthw.ars_hex.hexerei;
 
+import alexthw.ars_elemental.documentation.AEDocumentation;
+import alexthw.ars_elemental.registry.ModItems;
 import com.alexthw.ars_hex.hexerei.broom.ArchwoodBroomStick;
 import com.alexthw.ars_hex.hexerei.broom.EnchanterBroomEntity;
 import com.alexthw.ars_hex.hexerei.broom.MagebloomBrush;
+import com.alexthw.sauce.ArsNouveauRegistry;
+import com.alexthw.sauce.common.recipe.ElementalArmorRecipe;
+import com.alexthw.sauce.documentation.AEArmorEntry;
+import com.hollingsworth.arsnouveau.api.documentation.ReloadDocumentationEvent;
+import com.hollingsworth.arsnouveau.api.documentation.builder.DocEntryBuilder;
+import com.hollingsworth.arsnouveau.api.documentation.entry.TextEntry;
 import com.hollingsworth.arsnouveau.api.particle.PropertyParticleType;
 import com.hollingsworth.arsnouveau.api.particle.configurations.properties.ParticleTypeProperty;
 import com.hollingsworth.arsnouveau.api.registry.SpellCasterRegistry;
@@ -15,6 +23,7 @@ import com.mojang.datafixers.util.Either;
 import net.joefoxe.hexerei.client.renderer.entity.BroomType;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
 import net.joefoxe.hexerei.client.renderer.entity.render.BroomRenderer;
+import net.joefoxe.hexerei.data.recipes.MixingCauldronRecipe;
 import net.joefoxe.hexerei.item.custom.BroomItemRenderer;
 import net.joefoxe.hexerei.particle.*;
 import net.minecraft.client.gui.screens.Screen;
@@ -28,6 +37,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -45,12 +55,16 @@ import java.util.List;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
 import static com.alexthw.ars_hex.registry.ModRegistry.*;
+import static com.hollingsworth.arsnouveau.api.registry.DocumentationRegistry.GETTING_STARTED;
+import static com.hollingsworth.arsnouveau.setup.registry.Documentation.addPage;
+import static net.joefoxe.hexerei.data.recipes.ModRecipeTypes.MIXING_CAULDRON_TYPE;
 
 public class HexereiCompat {
 
     public static DeferredHolder<EntityType<?>, EntityType<BroomEntity>> ARCHWOOD_BROOM_ENTITY;
 
     public static void init(IEventBus modEventBus) {
+
         // Register items
         ARCHWOOD_BROOM = ITEMS.register("archwood_broom", () -> new ArchwoodBroomStick("archwood", new Item.Properties().stacksTo(1).component(DataComponentRegistry.SPELL_CASTER, new SpellCaster())));
         MAGEBLOOM_BRUSH = ITEMS.register("magebloom_brush", () -> new MagebloomBrush(new Item.Properties().durability(100)));
@@ -122,6 +136,11 @@ public class HexereiCompat {
 
 
     public static void postInit() {
+        ArsNouveauRegistry.recipePageConsumers.add((holder, cir) -> {
+            if (holder.value() instanceof MixingCauldronRecipe)
+                //noinspection unchecked
+                cir.getReturnValue().add(CauldronEntry.create((RecipeHolder<MixingCauldronRecipe>) holder));
+        });
         BroomType.create("archwood", ARCHWOOD_BROOM.get(), 0.6f);
         ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_LEAVES_1.get(), true));
         ParticleTypeProperty.addType(new ParticleTypeProperty.ParticleData(BROOM_LEAVES_2.get(), true));
@@ -149,7 +168,13 @@ public class HexereiCompat {
             FOG, BLOOD, STAR_BRUSH;
 
     public static void initDocs() {
-
+        addPage(new DocEntryBuilder(GETTING_STARTED, "hexerei_compat")
+                .withIcon(ARCHWOOD_BROOM.get())
+                .withTextPage("ars_hex.page.archwood_broom")
+                .withCraftingPages(prefix("archwood_broom_from_mixing_cauldron"), ARCHWOOD_BROOM.get())
+                .withTextPage("ars_hex.page.magebloom_brush")
+                .withCraftingPages(prefix("wet_magebloom_brush_from_mixing_cauldron"), WET_MAGEBLOOM_BRUSH.get())
+        );
     }
 
 }

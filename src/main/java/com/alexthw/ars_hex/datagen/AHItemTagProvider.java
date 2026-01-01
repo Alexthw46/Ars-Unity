@@ -32,7 +32,7 @@ public class AHItemTagProvider extends ItemTagsProvider {
         tag(HexereiTags.Items.BROOM_BRUSH).addOptional(HexereiCompat.MAGEBLOOM_BRUSH.getId());
         tag(ItemTags.DURABILITY_ENCHANTABLE).addOptionalTag(HexereiTags.Items.BROOM_BRUSH);
         tag(ItemTagProvider.SHARD_TAG).addOptional(ModItems.SELENITE_SHARD.getId());
-        tag(MalumTags.ItemTags.MAGIC_CAPABLE_WEAPONS).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
+        tag(MalumTags.ItemTags.MAGIC_CAPABLE_WEAPON).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
         tag(Tags.Items.MELEE_WEAPON_TOOLS).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
     }
 
