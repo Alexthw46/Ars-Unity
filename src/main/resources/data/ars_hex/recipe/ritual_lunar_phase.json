@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "tag": "c:dyes/black"
+    },
+    "w": {
+      "tag": "c:dyes/white"
+    },
+    "r": {
+      "item": "ars_nouveau:ritual_moonfall"
+    }
+  },
+  "pattern": [
+    "wbb",
+    "wrb",
+    "wwb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ars_hex:ritual_lunar_phase"
+  }
+}

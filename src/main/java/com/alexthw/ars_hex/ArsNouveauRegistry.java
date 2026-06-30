@@ -1,11 +1,13 @@
 package com.alexthw.ars_hex;
 
+import com.alexthw.ars_hex.common.RitualMoonPhase;
 import com.alexthw.ars_hex.glyphs.EffectSoulShatter;
 import com.alexthw.ars_hex.malum.perks.MagicProficencyPerk;
 import com.alexthw.ars_hex.malum.perks.SoulWardPerk;
 import com.alexthw.ars_hex.malum.perks.SpiritSpoilsPerk;
 import com.hollingsworth.arsnouveau.api.registry.GlyphRegistry;
 import com.hollingsworth.arsnouveau.api.registry.PerkRegistry;
+import com.hollingsworth.arsnouveau.api.registry.RitualRegistry;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import net.neoforged.fml.ModList;
 
@@ -38,6 +40,7 @@ public class ArsNouveauRegistry {
     public static void init() {
         registerCompatGlyphs();
         registerCompatPerks();
+        RitualRegistry.registerRitual(new RitualMoonPhase());
     }
 
     public static void registerCompatPerks() {

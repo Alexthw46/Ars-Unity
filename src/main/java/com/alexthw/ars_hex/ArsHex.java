@@ -5,6 +5,9 @@ import com.alexthw.ars_hex.iss.ISSCompat;
 import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.registry.ModRegistry;
 import com.hollingsworth.arsnouveau.api.documentation.ReloadDocumentationEvent;
+import com.hollingsworth.arsnouveau.api.registry.DocumentationRegistry;
+import com.hollingsworth.arsnouveau.setup.registry.Documentation;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -12,6 +15,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -29,11 +33,15 @@ public class ArsHex {
         if (ModList.get().isLoaded("malum")) {
             MalumCompat.init();
         }
+        if (ModList.get().isLoaded("eidolon_repraised")) {
+            //EidolonCompat.init(modEventBus);
+        }
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.init(modEventBus);
         }
         ArsNouveauRegistry.init();
         modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::registerItemOverrides);
         modEventBus.addListener(this::layerDefinitions);
         modEventBus.addListener(this::registerClientExtensions);
         modEventBus.addListener(this::registerRenderers);
@@ -44,6 +52,7 @@ public class ArsHex {
             NeoForge.EVENT_BUS.addListener(ISSCompat::damageTweaksEISS);
         }
         NeoForge.EVENT_BUS.addListener(ArsHex::initDocs);
+        NeoForge.EVENT_BUS.addListener(ArsHex::postInitDocs);
     }
 
     public static ResourceLocation prefix(String path) {
@@ -54,6 +63,9 @@ public class ArsHex {
         //ArsNouveauRegistry.registerSounds();
         if (ModList.get().isLoaded("malum")) {
             event.enqueueWork(MalumCompat::postInit);
+        }
+        if (ModList.get().isLoaded("eidolon_repraised")) {
+            //event.enqueueWork(EidolonCompat::postInit);
         }
         if (ModList.get().isLoaded("hexerei")) {
             event.enqueueWork(HexereiCompat::postInit);
@@ -75,6 +87,13 @@ public class ArsHex {
         }
     }
 
+    private void registerItemOverrides(FMLClientSetupEvent evt) {
+        evt.enqueueWork(() -> ItemProperties.register(ModRegistry.MOON_DIAL.get(), ResourceLocation.fromNamespaceAndPath(MODID, "phase"), (stack, level, entity, seed) -> {
+            var tag = stack.get(ModRegistry.MOON_PHASE);
+            return tag != null ? tag.ordinal() - 1 : 0;
+        }));
+    }
+
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.registerRenderers(event);
@@ -82,6 +101,9 @@ public class ArsHex {
     }
 
     public static void initDocs(ReloadDocumentationEvent.AddEntries event) {
+        if (ModList.get().isLoaded("eidolon_repraised")) {
+            //EidolonCompat.initDocs();
+        }
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.initDocs();
         }
@@ -93,7 +115,15 @@ public class ArsHex {
         }
     }
 
+    public static void postInitDocs(ReloadDocumentationEvent.Post event) {
+        DocumentationRegistry.getEntry(prefix("ritual_lunar_phase")).addPages(Documentation.getRecipePages(prefix("moon_dial")));
+    }
+
+
     public void registerParticles(RegisterParticleProvidersEvent event) {
+        if (ModList.get().isLoaded("eidolon_repraised")) {
+            //EidolonCompat.registerParticles(event);
+        }
         if (ModList.get().isLoaded("irons_spellbooks")) {
             ISSCompat.registerParticles(event);
         }

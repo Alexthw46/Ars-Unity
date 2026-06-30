@@ -1,16 +1,11 @@
 package com.alexthw.ars_hex.hexerei;
 
-import alexthw.ars_elemental.documentation.AEDocumentation;
-import alexthw.ars_elemental.registry.ModItems;
+import com.alexthw.ars_hex.ArsHex;
 import com.alexthw.ars_hex.hexerei.broom.ArchwoodBroomStick;
 import com.alexthw.ars_hex.hexerei.broom.EnchanterBroomEntity;
 import com.alexthw.ars_hex.hexerei.broom.MagebloomBrush;
 import com.alexthw.sauce.ArsNouveauRegistry;
-import com.alexthw.sauce.common.recipe.ElementalArmorRecipe;
-import com.alexthw.sauce.documentation.AEArmorEntry;
-import com.hollingsworth.arsnouveau.api.documentation.ReloadDocumentationEvent;
 import com.hollingsworth.arsnouveau.api.documentation.builder.DocEntryBuilder;
-import com.hollingsworth.arsnouveau.api.documentation.entry.TextEntry;
 import com.hollingsworth.arsnouveau.api.particle.PropertyParticleType;
 import com.hollingsworth.arsnouveau.api.particle.configurations.properties.ParticleTypeProperty;
 import com.hollingsworth.arsnouveau.api.registry.SpellCasterRegistry;
@@ -54,10 +49,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
-import static com.alexthw.ars_hex.registry.ModRegistry.*;
+import static com.alexthw.ars_hex.registry.ModRegistry.ENTITY_TYPES;
+import static com.alexthw.ars_hex.registry.ModRegistry.ITEMS;
+import static com.alexthw.ars_hex.registry.ModRegistry.PARTICLES;
 import static com.hollingsworth.arsnouveau.api.registry.DocumentationRegistry.GETTING_STARTED;
 import static com.hollingsworth.arsnouveau.setup.registry.Documentation.addPage;
-import static net.joefoxe.hexerei.data.recipes.ModRecipeTypes.MIXING_CAULDRON_TYPE;
 
 public class HexereiCompat {
 
@@ -168,7 +164,7 @@ public class HexereiCompat {
             FOG, BLOOD, STAR_BRUSH;
 
     public static void initDocs() {
-        addPage(new DocEntryBuilder(GETTING_STARTED, "hexerei_compat")
+        addPage(new DocEntryBuilder(ArsHex.MODID, GETTING_STARTED, "hexerei_compat")
                 .withIcon(ARCHWOOD_BROOM.get())
                 .withTextPage("ars_hex.page.archwood_broom")
                 .withCraftingPages(prefix("archwood_broom_from_mixing_cauldron"), ARCHWOOD_BROOM.get())

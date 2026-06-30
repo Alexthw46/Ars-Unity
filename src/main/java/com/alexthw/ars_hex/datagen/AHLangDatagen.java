@@ -3,6 +3,7 @@ package com.alexthw.ars_hex.datagen;
 import com.alexthw.ars_hex.ArsHex;
 import com.hollingsworth.arsnouveau.api.registry.GlyphRegistry;
 import com.hollingsworth.arsnouveau.api.registry.PerkRegistry;
+import com.hollingsworth.arsnouveau.api.registry.RitualRegistry;
 import com.hollingsworth.arsnouveau.api.spell.AbstractAugment;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.common.datagen.LangDatagen;
@@ -31,7 +32,7 @@ public class AHLangDatagen extends LangDatagen {
         add("tooltip.ars_hex.magebloom_brush", "Might recharge itself with the mana of the rider");
         add("tooltip.hexerei.key_for_spell", "Press %s to cast the inscribed spell while riding it.");
         // Hexerei Codex entries
-        add("ars_nouveau.page.hexerei_compat", "Hexerei Compatibility");
+        add("ars_hex.page.hexerei_compat", "Hexerei Compatibility");
         add("ars_hex.page.archwood_broom", "The Archwood Broom is a flying broom made from the enchanted wood of the Archwood tree. In addition to classic brooms, it can be inscribed with a spell that will be cast using the broom hotkey.");
         add("ars_hex.page.magebloom_brush", "The Magebloom Broom Brush is crafted from the magical Magebloom flowers. It needs to be dried on a Drying Rack before use. When attached to a broom, it can repair itself with the user mana when while riding.");
         // Glyphs
@@ -64,6 +65,20 @@ public class AHLangDatagen extends LangDatagen {
                 add("item.ars_hex." + registryName.getPath(), perk.getLangName());
             }
         }
+
+        for (var sup : RitualRegistry.getRitualItemMap().values()) {
+            var ritual = sup.ritual;
+            ResourceLocation registryName = ritual.getRegistryName();
+            if (registryName.getNamespace().equals(ArsHex.MODID)) {
+                add("ars_hex.ritual_desc." + registryName.getPath(), ritual.getLangDescription());
+                add("ars_hex.ritual_name." + registryName.getPath(), ritual.getLangName());
+                add("item.ars_hex." + registryName.getPath(), ritual.getLangName());
+            }
+        }
+
+        add("item.ars_hex.moon_dial", "Moon Dial");
+        add("tooltip.ars_hex.moon_dial.cycle", "Shift + Right Click to cycle through the phases of the moon.");
+        add("tooltip.ars_hex.moon_dial.current", "Current phase: %s");
 
         // Hexerei particles
         add("ars_hex.particle.broom_leaves", "Hexerei Broom Leaves");

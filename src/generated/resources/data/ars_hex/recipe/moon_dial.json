@@ -1,0 +1,20 @@
+{
+  "type": "ars_nouveau:enchanting_apparatus",
+  "keepNbtOfReagent": false,
+  "pedestalItems": [
+    {
+      "item": "ars_nouveau:conjuration_essence"
+    },
+    {
+      "item": "ars_nouveau:conjuration_essence"
+    }
+  ],
+  "reagent": {
+    "item": "minecraft:clock"
+  },
+  "result": {
+    "count": 1,
+    "id": "ars_hex:moon_dial"
+  },
+  "sourceCost": 0
+}

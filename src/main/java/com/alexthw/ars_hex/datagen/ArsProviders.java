@@ -6,6 +6,7 @@ import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.ars_hex.malum.perks.MagicProficencyPerk;
 import com.alexthw.ars_hex.malum.perks.SoulWardPerk;
 import com.alexthw.ars_hex.malum.perks.SpiritSpoilsPerk;
+import com.alexthw.ars_hex.registry.ModRegistry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,6 +26,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
@@ -89,8 +91,9 @@ public class ArsProviders {
 
         @Override
         public void collectJsons(CachedOutput cache) {
+            List<ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe>> malum_recipes = new ArrayList<>();
 
-            recipes.add(builder()
+            malum_recipes.add(builder()
                     .withReagent(MalumItems.SOUL_STAINED_STEEL_SCYTHE.get())
                     .withPedestalItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD))
                     .withPedestalItem(RecipeDatagen.SOURCE_GEM_BLOCK)
@@ -100,7 +103,7 @@ public class ArsProviders {
                     .build()
             );
 
-            recipes.add(builder()
+            malum_recipes.add(builder()
                     .withResult(getPerkItem(SoulWardPerk.INSTANCE.getRegistryName()))
                     .withReagent(ItemsRegistry.BLANK_THREAD)
                     .withPedestalItem(MalumItems.RUNE_OF_REINFORCEMENT.get())
@@ -110,7 +113,7 @@ public class ArsProviders {
                     .build()
             );
 
-            recipes.add(builder()
+            malum_recipes.add(builder()
                     .withResult(getPerkItem(SpiritSpoilsPerk.INSTANCE.getRegistryName()))
                     .withReagent(ItemsRegistry.BLANK_THREAD)
                     .withPedestalItem(MalumItems.RING_OF_ESOTERIC_SPOILS.get())
@@ -121,7 +124,7 @@ public class ArsProviders {
                     .build()
             );
 
-            recipes.add(builder()
+            malum_recipes.add(builder()
                     .withResult(getPerkItem(MagicProficencyPerk.INSTANCE.getRegistryName()))
                     .withReagent(ItemsRegistry.BLANK_THREAD)
                     .withPedestalItem(2, MalumItems.REFINED_SOULSTONE.get())
@@ -131,12 +134,25 @@ public class ArsProviders {
                     .build()
             );
 
+            recipes.add(builder()
+                    .withResult(ModRegistry.MOON_DIAL.get())
+                    .withReagent(Items.CLOCK)
+                    .withPedestalItem(2, ItemsRegistry.CONJURATION_ESSENCE)
+                    .build());
+
             Path output = this.generator.getPackOutput().getOutputFolder();
-            for (ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe> g : recipes) {
+            for (ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe> g : malum_recipes) {
                 if (g != null) {
                     Path path = getRecipePath(output, g.id().getPath());
                     JsonElement wrapped = wrapModCondition(g.serialize(), MalumMod.MALUM);
                     saveStable(cache, wrapped, path);
+                }
+            }
+
+            for (ApparatusRecipeBuilder.RecipeWrapper<? extends EnchantingApparatusRecipe> g : recipes) {
+                if (g != null) {
+                    Path path = getRecipePath(output, g.id().getPath());
+                    saveStable(cache, g.serialize(), path);
                 }
             }
 

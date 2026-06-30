@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_0",
+      "predicate": {
+        "ars_hex:phase": 0.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_1",
+      "predicate": {
+        "ars_hex:phase": 1.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_2",
+      "predicate": {
+        "ars_hex:phase": 2.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_3",
+      "predicate": {
+        "ars_hex:phase": 3.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_4",
+      "predicate": {
+        "ars_hex:phase": 4.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_5",
+      "predicate": {
+        "ars_hex:phase": 5.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_6",
+      "predicate": {
+        "ars_hex:phase": 6.0
+      }
+    },
+    {
+      "model": "ars_hex:item/moon_phases/moon_dial_7",
+      "predicate": {
+        "ars_hex:phase": 7.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "ars_hex:item/moon_dial"
+  }
+}
