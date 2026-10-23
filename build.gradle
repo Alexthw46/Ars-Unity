@@ -122,6 +122,7 @@ repositories {
             includeGroup("software.bernie.geckolib")
         }
     }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -132,6 +133,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -143,7 +145,6 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
-
 
     maven {
         name = "Illusive Soulworks maven"
@@ -188,7 +189,7 @@ dependencies {
     compileOnly "com.hollingsworth.nuggets:nuggets-neoforge-1.21:${nuggets_version}"
     jarJar(implementation("com.alexthw.sauce:sauce-${minecraft_version}") {
         version {
-            strictly '[0.0.40,)'
+            strictly '[0.0.60,)'
             prefer sauce_version
         }
     }) { transitive = false }
@@ -213,6 +214,8 @@ dependencies {
     implementation "maven.modrinth:hexerei:0.5.0"
     localRuntime "curse.maven:mmmmmmmmmmmm-225738:5779508"
     localRuntime "curse.maven:selene-499980:5983849"
+
+
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

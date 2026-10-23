@@ -68,7 +68,7 @@ public class ArsProviders {
 
         @Override
         public @NotNull String getName() {
-            return "Example Glyph Recipes";
+            return "Ars Hex-Unity Glyph Recipes";
         }
     }
 
@@ -164,7 +164,7 @@ public class ArsProviders {
 
         @Override
         public @NotNull String getName() {
-            return "Example Apparatus";
+            return "Ars Hex-Unity Apparatus";
         }
     }
 
@@ -191,7 +191,7 @@ public class ArsProviders {
         public void collectJsons(CachedOutput cache) {
 
             /*
-            recipes.add(new ImbuementRecipe("example_focus", Ingredient.of(Items.AMETHYST_SHARD), new ItemStack(ItemsRegistry.SUMMONING_FOCUS, 1), 5000)
+            recipes.add(new ImbuementRecipe("Ars Hex-Unity_focus", Ingredient.of(Items.AMETHYST_SHARD), new ItemStack(ItemsRegistry.SUMMONING_FOCUS, 1), 5000)
                     .withPedestalItem(ItemsRegistry.WILDEN_TRIBUTE)
             );
             */
@@ -203,7 +203,7 @@ public class ArsProviders {
 
         @Override
         public @NotNull String getName() {
-            return "Example Imbuement";
+            return "Ars Hex-Unity Imbuement";
         }
 
     }

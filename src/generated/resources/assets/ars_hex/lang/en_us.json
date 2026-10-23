@@ -35,6 +35,8 @@
   "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_dampen": "Reduces damage dealt.",
   "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_fortune": "Applies looting when killing a mob.",
   "ars_nouveau.augment_desc.glyph_soul_shatter_glyph_randomize": "Randomizes the damage dealt.",
+  "death.attack.soul_shatter": "%1$s soul was shattered into pieces",
+  "death.attack.soul_shatter.item": "%1$s soul was shattered into pieces by %2$s using %3$s",
   "entity.ars_hex.archwood_broom": "Enchanter's Broom",
   "item.ars_hex.archwood_broom": "Archwood Broom",
   "item.ars_hex.archwood_staff": "Archwood Staff",

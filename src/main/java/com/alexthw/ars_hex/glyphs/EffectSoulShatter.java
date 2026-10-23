@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.alexthw.ars_hex.ArsHex.prefix;
-import static com.sammy.malum.registry.common.MalumDamageTypes.VOODOO;
+import static com.alexthw.ars_hex.malum.MalumCompat.SOUL_SHATTER;
 
 public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
 
@@ -44,7 +44,7 @@ public class EffectSoulShatter extends AbstractEffect implements IDamageEffect {
     }
 
     public DamageSource buildDamageSource(Level world, LivingEntity shooter) {
-        return DamageUtil.source(world, VOODOO, ANFakePlayer.getOrFakePlayer((ServerLevel) world, shooter));
+        return DamageUtil.source(world, SOUL_SHATTER, ANFakePlayer.getOrFakePlayer((ServerLevel) world, shooter));
     }
 
     public void buildConfig(ModConfigSpec.Builder builder) {

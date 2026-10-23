@@ -1,6 +1,7 @@
 package com.alexthw.ars_hex.datagen;
 
 import com.alexthw.ars_hex.ArsHex;
+import com.alexthw.ars_hex.hexcast.HexcastCompat;
 import com.alexthw.ars_hex.hexerei.HexereiCompat;
 import com.alexthw.ars_hex.malum.MalumCompat;
 import com.hollingsworth.arsnouveau.common.datagen.BlockTagProvider;
@@ -12,6 +13,7 @@ import net.joefoxe.hexerei.util.HexereiTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
@@ -32,8 +34,10 @@ public class AHItemTagProvider extends ItemTagsProvider {
         tag(HexereiTags.Items.BROOM_BRUSH).addOptional(HexereiCompat.MAGEBLOOM_BRUSH.getId());
         tag(ItemTags.DURABILITY_ENCHANTABLE).addOptionalTag(HexereiTags.Items.BROOM_BRUSH);
         tag(ItemTagProvider.SHARD_TAG).addOptional(ModItems.SELENITE_SHARD.getId());
+        tag(ItemTagProvider.SHARD_TAG).addOptional(ResourceLocation.fromNamespaceAndPath("hexcasting", "amethyst_dust")).addOptional(ResourceLocation.fromNamespaceAndPath("hexcasting", "charged_amethyst"));
         tag(MalumTags.ItemTags.MAGIC_CAPABLE_WEAPON).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
         tag(Tags.Items.MELEE_WEAPON_TOOLS).addOptional(MalumCompat.ENCHANTER_SCYTHE.getId());
+        tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("hexcasting", "staves"))).addOptional(HexcastCompat.ARCHWOOD_STAFF.getId());
     }
 
     @Override

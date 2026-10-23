@@ -2,13 +2,16 @@ package com.alexthw.ars_hex.datagen;
 
 import alexthw.ars_elemental.registry.ModRegistry;
 import com.alexthw.ars_hex.ArsHex;
+import com.alexthw.ars_hex.malum.MalumCompat;
 import com.alexthw.sauce.registry.SauceTags;
 import com.hollingsworth.arsnouveau.setup.registry.DamageTypesRegistry;
+import com.sammy.malum.registry.common.MalumTags;
 import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
 import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
+import net.minecraft.tags.DamageTypeTags;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -37,5 +40,9 @@ public class AHDamageTypeTagsProvider extends DamageTypeTagsProvider {
 
         //TODO remove if Sammy; fixes tag issue
         tag(LodestoneDamageTypeTags.IS_MAGIC).addTag(Tags.DamageTypes.IS_MAGIC);
+
+        tag(MalumTags.DamageTypeTags.SOUL_SHATTER_DAMAGE).addOptional(MalumCompat.SOUL_SHATTER.location());
+        tag(Tags.DamageTypes.IS_MAGIC).addOptional(MalumCompat.SOUL_SHATTER.location());
+        tag(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS).addOptional(MalumCompat.SOUL_SHATTER.location());
     }
 }

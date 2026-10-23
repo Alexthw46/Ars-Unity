@@ -1,5 +1,6 @@
 package com.alexthw.ars_hex;
 
+import com.alexthw.ars_hex.hexcast.HexcastCompat;
 import com.alexthw.ars_hex.hexerei.HexereiCompat;
 import com.alexthw.ars_hex.iss.ISSCompat;
 import com.alexthw.ars_hex.malum.MalumCompat;
@@ -38,6 +39,9 @@ public class ArsHex {
         }
         if (ModList.get().isLoaded("hexerei")) {
             HexereiCompat.init(modEventBus);
+        }
+        if (ModList.get().isLoaded("hexcasting")) {
+            HexcastCompat.init();
         }
         ArsNouveauRegistry.init();
         modEventBus.addListener(this::setup);

@@ -5,6 +5,10 @@ import com.hollingsworth.arsnouveau.common.light.LightManager;
 import com.hollingsworth.arsnouveau.setup.registry.EnchantmentRegistry;
 import com.sammy.malum.common.entity.scythe.ScytheBoomerangEntity;
 import com.sammy.malum.registry.common.entity.MalumEntities;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
@@ -14,6 +18,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import team.lodestar.lodestone.systems.item.LodestoneItemProperties;
 
+import static com.alexthw.ars_hex.ArsHex.prefix;
 import static com.alexthw.ars_hex.registry.ModRegistry.ITEMS;
 import static com.hollingsworth.arsnouveau.common.event.ReactiveEvents.castSpell;
 
@@ -21,7 +26,6 @@ public class MalumCompat {
 
     public static void postInit() {
         LightManager.register(MalumEntities.NATURAL_SPIRIT.get(), (p) -> 8);
-
         LightManager.register(MalumEntities.ETHERIC_NITRATE.get(), (p) -> 15);
         LightManager.register(MalumEntities.VIVID_NITRATE.get(), (p) -> 15);
     }
@@ -34,6 +38,7 @@ public class MalumCompat {
     }
 
     public static DeferredHolder<Item, ? extends Item> ENCHANTER_SCYTHE;
+    public static final ResourceKey<DamageType> SOUL_SHATTER = key(Registries.DAMAGE_TYPE, "soul_shatter");
 
 
     @SubscribeEvent
@@ -44,6 +49,10 @@ public class MalumCompat {
             } else if (event.getSource().getEntity() instanceof LivingEntity living && living.level().holder(EnchantmentRegistry.REACTIVE_ENCHANTMENT).isPresent() && scytheBoomerang.getItem().getEnchantmentLevel(living.level().holderOrThrow(EnchantmentRegistry.REACTIVE_ENCHANTMENT)) > 0) {
                 castSpell(living, scytheBoomerang.getItem());
             }
+    }
+
+    static <T> ResourceKey<T> key(ResourceKey<Registry<T>> registryResourceKey, String name) {
+        return ResourceKey.create(registryResourceKey, prefix(name));
     }
 
     public static void initDocs() {

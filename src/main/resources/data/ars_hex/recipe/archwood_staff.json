@@ -8,7 +8,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "tag": "forge:gems/source"
+      "tag": "c:gems/source"
     },
     "S": {
       "item": "minecraft:stick"
@@ -23,6 +23,7 @@
     "S  "
   ],
   "result": {
-    "item": "ars_hex:archwood_staff"
+    "count": 1,
+    "id": "ars_hex:archwood_staff"
   }
 }

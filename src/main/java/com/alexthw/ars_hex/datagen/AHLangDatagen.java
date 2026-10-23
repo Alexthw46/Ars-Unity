@@ -80,6 +80,9 @@ public class AHLangDatagen extends LangDatagen {
         add("tooltip.ars_hex.moon_dial.cycle", "Shift + Right Click to cycle through the phases of the moon.");
         add("tooltip.ars_hex.moon_dial.current", "Current phase: %s");
 
+        add("death.attack.soul_shatter", "%1$s soul was shattered into pieces");
+        add("death.attack.soul_shatter.item", "%1$s soul was shattered into pieces by %2$s using %3$s");
+
         // Hexerei particles
         add("ars_hex.particle.broom_leaves", "Hexerei Broom Leaves");
         add("ars_hex.particle.broom_leaves_2", "Hexerei Broom Leaves 2");
